@@ -1,22 +1,19 @@
-class Slope
-  def initialize(map)
-    @map = map
-    @width = map[0].count
-    @height = map.count
-  end
+def prepare_map(input)
+  input.split("\n").map(&:chars)
+end
 
-  def move_hits?(x, y, dx, dy)
-    @map[y+dy][(x+dx) % @width] == '#'
-  end
+def select_rows(dy, tree_map)
+  (1..tree_map.count - 1).select { |i| i % dy == 0 }.map { |i| tree_map[i] }
+end
 
-  def num_hits(x, y, dx, dy)
-    hits = 0
-    while y < @height - 1
-      hits +=1 if move_hits?(x, y, dx, dy)
-      x += dx
-      y += dy
-    end
-    hits
+def hit?(step, dx, row)
+  x = step * dx
+  row[x % row.count] == '#'
+end
+
+def count_trees(dx, dy, tree_map)
+  select_rows(dy, tree_map).each_with_index.reduce(0) do |acc, (row, i)|
+    hit?(i+1, dx, row) ? acc += 1 : acc
   end
 end
 
@@ -29,13 +26,7 @@ def main
     [7,1],
     [1,2],
   ]
-  the_hill = Slope.new(map)
-
-  slopes.each do |slope|
-    puts "Slope: #{slope} has #{the_hill.num_hits(0, 0, *slope)} hits"
-  end
-
-  puts slopes.map{ |slope| the_hill.num_hits(0, 0, *slope) }.reduce(&:*)
+  puts slopes.map{ |slope| count_trees(*slope, map) }.reduce(&:*)
 end
 
 main if __FILE__ == $PROGRAM_NAME
