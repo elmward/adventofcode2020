@@ -1,6 +1,6 @@
 require_relative './part1.rb'
 
-describe "valid_passport?" do
+describe "required_fields_present?" do
   let(:passport) do
     {
       byr: 'foo',
@@ -15,19 +15,19 @@ describe "valid_passport?" do
   end
 
   it "considers a passport with all fields valid" do
-    expect(valid_passport?(passport)).to eq true
+    expect(required_fields_present?(passport)).to eq true
   end
 
   it "considers a passport missing only cid valid" do
     passport.delete(:cid)
-    expect(valid_passport?(passport)).to eq true
+    expect(required_fields_present?(passport)).to eq true
   end
 
   it "considers a passport missing other fields invalid" do
     fields = passport.keys
     fields.delete(:cid)
     passport.delete(fields.shuffle.first)
-    expect(valid_passport?(passport)).to eq false
+    expect(required_fields_present?(passport)).to eq false
   end
 end
 

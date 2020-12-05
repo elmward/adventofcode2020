@@ -8,7 +8,7 @@ REQUIRED_FIELDS = %i[
   pid
 ]
 
-def valid_passport?(passport)
+def required_fields_present?(passport)
   REQUIRED_FIELDS.all? { |field_name| passport.keys.include?(field_name) }
 end
 
@@ -22,7 +22,7 @@ end
 
 def main
   passports = File.open('./input.txt').read.split("\n\n").map { |input| create_passport(input) }
-  puts passports.count { |passport| valid_passport?(passport) }
+  puts passports.count { |passport| required_fields_present?(passport) }
 end
 
 main if __FILE__ == $PROGRAM_NAME
