@@ -3,10 +3,9 @@ def count_answers(group)
 end
 
 def main
-  answers = File.open('./input.txt').read.split("\n\n").map do |group|
+  puts(File.open('./input.txt').read.split("\n\n").map do |group|
     count_answers(group)
-  end.sum
-  puts answers
+  end.sum)
 end
 
 main if __FILE__ == $PROGRAM_NAME
