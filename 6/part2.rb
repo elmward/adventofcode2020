@@ -1,8 +1,5 @@
 def count_answers(group)
-  # this assumes everyone answers each question at most once
-  group.join.chars.sort.chunk_while do |current, subsequent|
-    current == subsequent
-  end.count { |answers| answers.count == group.count }
+  group.join.chars.group_by { |answer| answer }.count { |answer, answers| answers.count == group.count }
 end
 
 def main
