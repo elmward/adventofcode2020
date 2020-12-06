@@ -9,6 +9,6 @@ describe "count_answers" do
   end
 
   it "counts all the questions that everyone answered 'yes' to" do
-    expect(count_answers(group)).to eq 1
+    expect(count_answers(group.split)).to eq 1
   end
 end
