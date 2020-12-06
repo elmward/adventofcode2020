@@ -1,5 +1,5 @@
 def count_answers(group)
-  group.join.chars.group_by { |answer| answer }.count { |answer, answers| answers.count == group.count }
+  group.join.chars.group_by { |answer| answer }.count { |_, answers| answers.count == group.count }
 end
 
 def main
