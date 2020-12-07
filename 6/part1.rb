@@ -3,7 +3,7 @@ def count_answers(group)
 end
 
 def main
-  puts(File.open('./input.txt').read.split("\n\n").map do |group|
+  puts(File.foreach('./input.txt', "\n\n").map do |group|
     count_answers(group)
   end.sum)
 end
