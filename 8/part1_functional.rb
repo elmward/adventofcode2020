@@ -4,11 +4,7 @@ def parse_instruction(input)
 end
 
 def execute(instr, arg, acc, cur)
-  {
-    'nop'=>[acc, cur+1],
-    'jmp'=>[acc, cur+arg],
-    'acc'=>[acc+arg, cur+1],
-  }[instr]
+  [instr == 'acc' ? acc+arg : acc, instr == 'jmp' ? cur + arg : cur+1]
 end
 
 def run(program)
