@@ -3,6 +3,19 @@ def parse_instruction(input)
   [instr, arg.to_i]
 end
 
+def execute(instr, arg, acc, cur)
+  case instr
+  when 'nop'
+    cur += 1
+  when 'jmp'
+    cur += arg
+  when 'acc'
+    acc += arg
+    cur += 1
+  end
+  [acc, cur]
+end
+
 def run(program)
   executed = {}
   cur = 0
@@ -10,15 +23,7 @@ def run(program)
   while cur < program.count && !executed[cur] do
     instr, arg = program[cur]
     executed[cur] = true
-    case instr
-    when 'nop'
-      cur += 1
-    when 'jmp'
-      cur += arg
-    when 'acc'
-      acc += arg
-      cur += 1
-    end
+    acc, cur = execute(instr, arg, acc, cur)
   end
   [acc, cur]
 end
