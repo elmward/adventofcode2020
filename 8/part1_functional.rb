@@ -9,9 +9,8 @@ end
 
 def run(program)
   executed, cur, acc = [{}, 0, 0]
-  while cur < program.count && !executed[cur] do
-    instr, arg = program[cur]
-    executed[cur] = true
+  while cur < program.count && (instr, arg = program[cur]) do
+    program[cur] = nil
     acc, cur = execute(instr, arg, acc, cur)
   end
   [acc, cur]
