@@ -4,7 +4,7 @@ def parse_instruction(input)
 end
 
 def run(program)
-  executed, cur, acc = [{}, 0, 0]
+  cur, acc = [0, 0]
   while cur < program.count && (instr, arg = program[cur]) do
     program[cur] = nil
     acc, cur = [instr == 'acc' ? acc+arg : acc, instr == 'jmp' ? cur + arg : cur+1]
