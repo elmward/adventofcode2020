@@ -1,5 +1,4 @@
 def contains?(rules, container_color, color)
-  return false unless rules[container_color]
   rules[container_color].include?(color) || rules[container_color].any? do |sub_container_color|
     contains?(rules, sub_container_color, color)
   end
@@ -9,11 +8,7 @@ def parse_input(input)
   {}.tap do |rules|
     input.split("\n").each do |line|
       container_color, containment_spec = line.split(" bags contain ")
-      if containment_spec == "no other bags."
-        contained_colors = []
-      else
-        contained_colors = containment_spec.split(", ").map { |color| /\d+ (.*) bag/.match(color).captures[0] }
-      end
+      contained_colors = containment_spec.split(", ").flat_map { |bag| bag.match(/\d+ (?<color>.*) bag/)&.named_captures&.fetch("color") || [] }
       rules[container_color] = contained_colors
     end
   end
