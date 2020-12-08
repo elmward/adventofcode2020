@@ -8,9 +8,7 @@ def execute(instr, arg, acc, cur)
 end
 
 def run(program)
-  executed = {}
-  cur = 0
-  acc = 0
+  executed, cur, acc = [{}, 0, 0]
   while cur < program.count && !executed[cur] do
     instr, arg = program[cur]
     executed[cur] = true
