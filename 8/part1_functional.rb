@@ -4,16 +4,11 @@ def parse_instruction(input)
 end
 
 def execute(instr, arg, acc, cur)
-  case instr
-  when 'nop'
-    cur += 1
-  when 'jmp'
-    cur += arg
-  when 'acc'
-    acc += arg
-    cur += 1
-  end
-  [acc, cur]
+  {
+    'nop'=>[acc, cur+1],
+    'jmp'=>[acc, cur+arg],
+    'acc'=>[acc+arg, cur+1],
+  }[instr]
 end
 
 def run(program)
