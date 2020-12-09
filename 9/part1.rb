@@ -22,7 +22,7 @@ TEST_INPUTS = %w[
 ].map(&:to_i)
 
 def valid?(preamble, n)
-  preamble.any? { |x| preamble.include?(n-x) }
+  preamble.any? { |x| 2*x != n && preamble.include?(n-x) }
 end
 
 def find_range(input, n)
