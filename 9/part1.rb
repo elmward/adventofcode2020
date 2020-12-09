@@ -35,10 +35,11 @@ end
 
 def main
   numbers = File.open('./input.txt').readlines.map(&:to_i)
-  numbers[25..].each_with_index do |n, i|
-    puts n if !valid?(numbers[i..i+25], n)
+  n = numbers[25..].each_with_index do |n, i|
+    break n if !valid?(numbers[i..i+25], n)
   end
-  i, j = find_range(numbers, 14144619)
+  puts n
+  i, j = find_range(numbers, n)
   range = numbers[i..j]
   puts(range.min + range.max)
 end
