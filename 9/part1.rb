@@ -26,13 +26,18 @@ def valid?(preamble, n)
 end
 
 def find_range(input, n)
-  input.each_with_index do |x, i|
-    (i+1..input.count-1).each do |j|
-      total = input[i..j].sum
-      break unless total <= n
-      return [i, j] if total == n
+  i, j = [0, 1]
+  total = input[i..j].sum
+  while total != n
+    if total < n
+      j += 1
+      total += input[j]
+    else
+      total -= input[i]
+      i += 1
     end
   end
+  [i,j]
 end
 
 def main
