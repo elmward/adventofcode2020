@@ -27,14 +27,11 @@ end
 
 def find_range(input, n)
   input.each_with_index do |x, i|
-    puts "considering range starting with #{i} (value #{x})"
     j = i
     total = n
     while total-x >= 0 && j < input.count
-      puts "#{x} is ok, #{total-x} left"
       total -= x
       if total == 0
-        puts "found range [#{i}, #{j}]"
         return [i, j]
       end
       j += 1
@@ -48,9 +45,9 @@ def main
   numbers[25..].each_with_index do |n, i|
     puts n if !valid?(numbers[i..i+25], n)
   end
-  range = find_range(numbers, 14144619)
-  the_range = numbers[range[0]..range[1]]
-  puts (the_range.min + the_range.max)
+  i, j = find_range(numbers, 14144619)
+  range = numbers[i..j]
+  puts(range.min + range.max)
 end
 
 main if __FILE__ == $PROGRAM_NAME
