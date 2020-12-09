@@ -28,10 +28,10 @@ end
 def find_range(input, n)
   input.each_with_index do |x, i|
     j = i
-    total = n
-    while total-x >= 0 && j < input.count
-      total -= x
-      if total == 0
+    total = 0
+    while total <= n && j < input.count
+      total += x
+      if total == n
         return [i, j]
       end
       j += 1
