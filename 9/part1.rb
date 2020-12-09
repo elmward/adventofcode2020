@@ -28,7 +28,9 @@ end
 def find_range(input, n)
   input.each_with_index do |x, i|
     (i+1..input.count-1).each do |j|
-      return [i, j] if input[i..j].sum == n
+      total = input[i..j].sum
+      break unless total <= n
+      return [i, j] if total == n
     end
   end
 end
