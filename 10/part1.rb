@@ -22,7 +22,7 @@ def invalid_paths_for_run(length)
   if length <= 4
     0
   else
-    (4..length-1).map { |x| length - x }.sum
+    (1..length-4).sum
   end
 end
 
