@@ -15,11 +15,15 @@ def valid_arrangements(joltages)
   joltages = joltages.sort.insert(0, 0)
   joltages << joltages.last + 3
   runs = joltages.chunk_while { |i, j| i + 1 == j }.select{ |chunk| chunk.length > 2}
-  runs.map{ |run| (2 ** (run.length - 2)) - (run.length <= 4 ? 0 : (4..run.length-1).map { |x| run.length - x }.sum) }.reduce(:*)
+  runs.map{ |run| (2 ** (run.length - 2)) - invalid_paths_for_run(run.length) }.reduce(:*)
 end
 
-def valid?(x, y)
-  x + 3 <= y
+def invalid_paths_for_run(length)
+  if length <= 4
+    0
+  else
+    (4..length-1).map { |x| length - x }.sum
+  end
 end
 
 def main

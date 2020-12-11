@@ -45,13 +45,6 @@ describe "day 10" do
 
   describe "valid_arrangements" do
     context "with simple input" do
-      let(:joltages) { [1] }
-      it "calculates how many different arrangements are valid" do
-        expect(valid_arrangements(joltages)).to eq 1
-      end
-    end
-
-    context "with more complex input" do
       let(:joltages) { [0, 1, 4, 5, 6, 7, 10, 11, 12, 15, 16, 19, 22] }
       it "calculates how many different arrangements are valid" do
         expect(valid_arrangements(joltages)).to eq 8
