@@ -29,13 +29,7 @@ end
 
 def main
   cur = File.open('./input.txt').readlines.map { |line| line.chars }
-  modified = true
-  runs = 0
-  until !modified
-    nxt, modified = iterate(cur)
-    cur = nxt
-    runs += 1
-  end
+  cur = iterate_until_stable(cur)
 
   puts cur.map{ |row| row.count { |seat| seat == OCCUPIED } }.sum
 end
