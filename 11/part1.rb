@@ -19,28 +19,34 @@ end
 
 def iterate(cur, max_occupancy=4)
   modified = false
-  nxt = Marshal.load(Marshal.dump(cur))
   cur.each_with_index do |row, y|
     row.each_with_index do |seat, x|
-      occupied = adjacencies(x, y, cur).count { |seat| seat == OCCUPIED }
+      occupied = adjacencies(x, y, cur).count { |seat| occupied?(seat) }
       if seat == EMPTY && occupied == 0
         modified = true
-        nxt[y][x] = OCCUPIED
+        cur[y][x] = [EMPTY, OCCUPIED]
       elsif seat == OCCUPIED && occupied >= max_occupancy
         modified = true
-        nxt[y][x] = EMPTY
+        cur[y][x] = [OCCUPIED, EMPTY]
       end
     end
   end
-  [nxt, modified]
+  cur = cur.map do |row|
+    row.map { |seat| seat.is_a?(Array) ? seat[1] : seat }
+  end
+  [cur, modified]
 end
 
-def iterate_until_stable(cur, max_occupancy=4)
+def occupied?(seat)
+  seat == OCCUPIED || (seat.is_a?(Array) && seat[0] == OCCUPIED)
+end
+
+def iterate_until_stable(seat_map, max_occupancy=4)
   modified = true
   until !modified
-    cur, modified = iterate(cur, max_occupancy)
+    seat_map, modified = iterate(seat_map, max_occupancy)
   end
-  cur
+  seat_map
 end
 
 def main
