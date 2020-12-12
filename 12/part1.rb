@@ -17,18 +17,17 @@ def part1(directions)
 
   directions.each do |direction|
     op, val = direction[0], direction[1..].to_i
-    case op
-    when -> (op) { op == 'E' || (op == 'F' && current_direction == EAST) }
+    if op == 'E' || (op == 'F' && current_direction == EAST)
       current_position[0] += val
-    when -> (op) { op == 'W' || (op == 'F' && current_direction == WEST) }
+    elsif op == 'W' || (op == 'F' && current_direction == WEST)
         current_position[0] -= val
-    when -> (op) { op == 'N' || (op == 'F' && current_direction == NORTH) }
+    elsif op == 'N' || (op == 'F' && current_direction == NORTH)
         current_position[1] += val
-    when -> (op) { op == 'S' || (op == 'F' && current_direction == SOUTH) }
+    elsif op == 'S' || (op == 'F' && current_direction == SOUTH)
         current_position[1] -= val
-    when 'L'
+    elsif op == 'L'
       current_direction = DIRECTIONS[(current_direction + (val/90)) % 4]
-    when 'R'
+    elsif op == 'R'
       current_direction = DIRECTIONS[current_direction - (val/90)]
     end
   end
