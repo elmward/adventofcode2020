@@ -1,7 +1,5 @@
 require_relative './part1.rb'
 
-MAX_OCCUPANCY = 5
-
 def adjacencies(x, y, seat_map)
   max_x = seat_map[0].length - 1
   max_y = seat_map.length - 1
@@ -28,10 +26,10 @@ def adjacencies(x, y, seat_map)
 end
 
 def main
-  cur = File.open('./input.txt').readlines.map { |line| line.chars }
-  cur = iterate_until_stable(cur)
+  seat_map = File.open('./input.txt').readlines.map { |line| line.chars }
+  final_map = iterate_until_stable(seat_map, 5)
 
-  puts cur.map{ |row| row.count { |seat| seat == OCCUPIED } }.sum
+  puts final_map.map{ |row| row.count { |seat| seat == OCCUPIED } }.sum
 end
 
 main if __FILE__ == $PROGRAM_NAME

@@ -1,7 +1,6 @@
 EMPTY = 'L'
 OCCUPIED = '#'
 FLOOR = '.'
-MAX_OCCUPANCY = 4
 
 def adjacencies(x, y, seat_map)
   max_x = seat_map[0].length - 1
@@ -18,7 +17,7 @@ def adjacencies(x, y, seat_map)
   end
 end
 
-def iterate(cur)
+def iterate(cur, max_occupancy=4)
   modified = false
   nxt = Marshal.load(Marshal.dump(cur))
   cur.each_with_index do |row, y|
@@ -27,7 +26,7 @@ def iterate(cur)
       if seat == EMPTY && occupied == 0
         modified = true
         nxt[y][x] = OCCUPIED
-      elsif seat == OCCUPIED && occupied >= MAX_OCCUPANCY
+      elsif seat == OCCUPIED && occupied >= max_occupancy
         modified = true
         nxt[y][x] = EMPTY
       end
@@ -36,19 +35,19 @@ def iterate(cur)
   [nxt, modified]
 end
 
-def iterate_until_stable(cur)
+def iterate_until_stable(cur, max_occupancy=4)
   modified = true
   until !modified
-    cur, modified = iterate(cur)
+    cur, modified = iterate(cur, max_occupancy)
   end
   cur
 end
 
 def main
-  cur = File.open('./input.txt').readlines.map { |line| line.chars }
-  cur = iterate_until_stable(cur)
+  seat_map = File.open('./input.txt').readlines.map { |line| line.chars }
+  final_map = iterate_until_stable(seat_map)
 
-  puts cur.map{ |row| row.count { |seat| seat == OCCUPIED } }.sum
+  puts final_map.map{ |row| row.count { |seat| seat == OCCUPIED } }.sum
 end
 
 main if __FILE__ == $PROGRAM_NAME
