@@ -3,11 +3,11 @@ def apply_mask(num, mask)
   mask.chars.reverse.each_with_index.reduce([0]) do |addresses, (c, i)|
     case c
     when '0'
-      addresses = addresses.map { |addr| addr + (num & 2**i) }
+      addresses.map { |addr| addr + (num & 2**i) }
     when '1'
-      addresses = addresses.map { |addr| addr + 2**i }
+      addresses.map { |addr| addr + 2**i }
     when 'X'
-      addresses = addresses.map { |addr| [addr, addr + 2**i] }.flatten
+      addresses.map { |addr| [addr, addr + 2**i] }.flatten
     end
   end
 end
