@@ -18,9 +18,7 @@ def find_first_valid_departure(schedule)
   incr = 1
 
   schedule.each do |bus_id, dt|
-    until (start_time + dt) % bus_id == 0
-      start_time += incr
-    end
+    start_time += incr while (start_time + dt) % bus_id != 0
     incr *= bus_id
   end
   start_time
