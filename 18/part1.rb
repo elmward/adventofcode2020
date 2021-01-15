@@ -1,5 +1,5 @@
 def do_math(input)
-  total = nil
+  total = 0
   op = nil
 
   i = 0
@@ -14,9 +14,11 @@ def do_math(input)
           total *= do_math(subexp)
         elsif op == '+'
           total += do_math(subexp)
+        elsif op.nil?
+          total = do_math(subexp)
         end
         i += subexp.length + 1
-      elsif total == nil
+      elsif total == 0
         total = tok.to_i
       elsif op == '*'
         total *= tok.to_i
@@ -33,7 +35,7 @@ def subexpression(input, start_index)
   i = start_index
   while i < input.chars.count
     tok = input.chars[i]
-    if tok != ' ' && tok == '('
+    if tok == '('
       j = i
       j += 1 until input.chars[j] != '('
       nesting_depth = j - i
@@ -48,6 +50,7 @@ def subexpression(input, start_index)
         end
       end
       i = j
+      break
     end
     i += 1
   end

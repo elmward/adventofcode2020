@@ -20,9 +20,21 @@ describe 'do_math' do
     end
   end
 
+  context 'with multiple groups' do
+    it 'does the math' do
+      expect(do_math('2 * (3 + 4) * (5 + 6)')).to eq 154
+    end
+  end
+
   context 'with a nested group' do
     it 'does the math' do
       expect(do_math('2 * 3 + (4 * (5 + 6))')).to eq 50
+    end
+  end
+
+  context 'with a leading nested group' do
+    it 'does the math' do
+      expect(do_math('((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2')).to eq 13632
     end
   end
 
